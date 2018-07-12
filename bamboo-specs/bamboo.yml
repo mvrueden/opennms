@@ -1,8 +1,8 @@
 project:
   key: TEST
   plan:
-    key: XXX
-    name: OpenNMS Reloadable Daemon - POC
+    key: ONMS
+    name: OpenNMS
 stages:
   - jobs:     
     - scripts:
