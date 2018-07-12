@@ -1,0 +1,17 @@
+project:
+  key: TEST
+  plan:
+    key: XXX
+    name: OpenNMS Reloadable Daemon - POC
+stages:
+  - jobs:
+      - scripts:
+          - M2_HOME=${bamboo_capability_system_builder_mvn3_Maven_3}
+          - ${bamboo_capability_system_builder_mvn3_Maven_3}/bin/mvn clean install
+        requirements:
+            - system.builder.mvn3.Maven 3
+        artifacts:
+          - name: library
+            path: target/*.jar
+        testParsers:
+          - junit
