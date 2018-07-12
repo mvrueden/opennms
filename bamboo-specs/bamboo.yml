@@ -4,14 +4,42 @@ project:
     key: XXX
     name: OpenNMS Reloadable Daemon - POC
 stages:
-  - jobs:
-      - scripts:
-          - M2_HOME=${bamboo_capability_system_builder_mvn3_Maven_3}
-          - ${bamboo_capability_system_builder_mvn3_Maven_3}/bin/mvn clean install
-        requirements:
-            - system.builder.mvn3.Maven 3
-        artifacts:
-          - name: library
-            path: target/*.jar
-        testParsers:
-          - junit
+  - jobs:     
+    - scripts:
+        # Prepare the build
+        - M2_HOME=${bamboo_capability_system_builder_mvn3_Maven_3}
+        - MAVEN_OPTS="-Xmx2048m -XX:ReservedCodeCacheSize=512m -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -XX:-UseGCOverheadLimit -XX:+UseParallelGC -XX:+UseParallelOldGC"
+        - chmod +x ./bamboo-specs/scripts/*
+        # - mkdir -p ~/artifacts
+        # - mkdir -p ~/.m2
+        - ./bamboo-specs/scripts/pre-build.sh
+        # - sudo .circleci/scripts/install.sh
+
+        # Print system info
+        - ./bamboo-specs/scripts/system-info.sh
+
+        # Compile 
+        - ./bamboo-specs/scripts/build.sh
+
+        # Package
+        - ./bamboo-specs/scripts/package.sh
+
+        # Collect artifacts
+        - ./bamboo-specs/scripts/post-build.sh
+      requirements:
+          - system.builder.mvn3.Maven 3
+      testParsers:
+        - junit  
+
+
+      # Attach artifacts to job
+     # - store_test_results:
+      #    path: ~/artifacts/test-results
+      #- store_artifacts:
+      #    path: ~/artifacts
+
+      # Copy artifacts to workspace
+     # - persist_to_workspace:
+      #    root: /home/circleci/artifacts
+      #    paths:
+      #      - rpms
