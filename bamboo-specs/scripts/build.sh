@@ -12,9 +12,8 @@ mvn install $MAVEN_FLAGS -Dopennms.home=/opt/opennms -Dinstall.version=${INSTALL
 mvn install $MAVEN_FLAGS -Dopennms.home=/opt/opennms -Dinstall.version=${INSTALL_VERSION} --batch-mode -Prun-expensive-tasks -Pdefault --file opennms-full-assembly/pom.xml || exit
 mvn install $MAVEN_FLAGS -Dopennms.home=/opt/opennms -Dinstall.version=${INSTALL_VERSION} --batch-mode -Prun-expensive-tasks --non-recursive --file opennms-tools/pom.xml || exit
 mvn install $MAVEN_FLAGS -Dopennms.home=/opt/opennms -Dinstall.version=${INSTALL_VERSION} --batch-mode -Prun-expensive-tasks --file opennms-tools/centric-troubleticketer/pom.xml || exit
-mvn install $MAVEN_FLAGS -Psmoke --projects :smoke-test || exit 1
+mvn install $MAVEN_FLAGS -Psmoke --projects :smoke-test || exit
 
 # Javadoc
 echo "Generating Javadoc"
 mvn javadoc:aggregate -DupdatePolicy=never --batch-mode -Prun-expensive-tasks || exit
-

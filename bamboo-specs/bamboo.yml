@@ -26,6 +26,7 @@ stages:
 
         # Collect artifacts
         - ./bamboo-specs/scripts/post-build.sh
+      interpreter: shell
       requirements:
           - system.builder.mvn3.Maven 3
       testParsers:
