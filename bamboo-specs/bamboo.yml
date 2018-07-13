@@ -7,7 +7,8 @@ stages:
   - jobs:     
     - scripts:
         # Prepare the build
-        - '#!/bin/bash'
+        # TODO MVR set ARTIFACT_DIRECTORY
+        - '#!/bin/bash -e'
         - M2_HOME=${bamboo_capability_system_builder_mvn3_Maven_3}
         - chmod +x ./bamboo-specs/scripts/*
         # Avoid BROKEN PIPE issues
