@@ -7,9 +7,12 @@ stages:
   - jobs:     
     - scripts:
         # Prepare the build
+        - '#!/bin/bash'
         - M2_HOME=${bamboo_capability_system_builder_mvn3_Maven_3}
         - MAVEN_OPTS="-Xmx2048m -XX:ReservedCodeCacheSize=512m -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -XX:-UseGCOverheadLimit -XX:+UseParallelGC -XX:+UseParallelOldGC"
         - chmod +x ./bamboo-specs/scripts/*
+        # Avoid BROKEN PIPE issues
+        - trap -- '' PIPE
         # - mkdir -p ~/artifacts
         # - mkdir -p ~/.m2
         - ./bamboo-specs/scripts/pre-build.sh
@@ -29,8 +32,6 @@ stages:
       interpreter: shell
       requirements:
           - system.builder.mvn3.Maven 3
-      testParsers:
-        - junit  
 
 
       # Attach artifacts to job
