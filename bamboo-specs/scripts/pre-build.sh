@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 echo "PRE-BUILD Script invoked"
 BASH_ENV=${BASH_ENV:-/tmp/bashrc}
 rm -f ${BASH_ENV}

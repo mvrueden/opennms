@@ -11,8 +11,6 @@ stages:
         - '#!/bin/bash -e'
         - M2_HOME=${bamboo_capability_system_builder_mvn3_Maven_3}
         - chmod +x ./bamboo-specs/scripts/*
-        # Avoid BROKEN PIPE issues
-        - trap -- '' PIPE
         # - mkdir -p ~/artifacts
         # - mkdir -p ~/.m2
         - ./bamboo-specs/scripts/pre-build.sh
