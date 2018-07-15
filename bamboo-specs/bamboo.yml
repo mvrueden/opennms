@@ -9,6 +9,7 @@ stages:
         # Prepare the build
         # TODO MVR set ARTIFACT_DIRECTORY
         - '#!/bin/bash -e'
+        - export BASH_ENV=/tmp/bashrc
         - M2_HOME=${bamboo_capability_system_builder_mvn3_Maven_3}
         - chmod +x ./bamboo-specs/scripts/*
         # - mkdir -p ~/artifacts
