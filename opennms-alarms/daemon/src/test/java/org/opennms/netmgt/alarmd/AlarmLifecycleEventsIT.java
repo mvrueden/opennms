@@ -38,8 +38,10 @@ import java.util.concurrent.Callable;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.opennms.core.criteria.Criteria;
 import org.opennms.core.criteria.restrictions.EqRestriction;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
@@ -82,6 +84,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 })
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase(dirtiesContext=false,tempDbClass=MockDatabase.class)
+@FixMethodOrder(value=MethodSorters.NAME_ASCENDING)
 public class AlarmLifecycleEventsIT implements TemporaryDatabaseAware<MockDatabase> {
 
     @Autowired
@@ -133,7 +136,7 @@ public class AlarmLifecycleEventsIT implements TemporaryDatabaseAware<MockDataba
     }
 
     @Test
-    public void canGenerateAlarmLifecycleEvents() {
+    public void _1canGenerateAlarmLifecycleEvents() { // wird als 2. aufgerufen
         // Expect an alarmCreated event
         m_eventMgr.getEventAnticipator().resetAnticipated();
         m_eventMgr.getEventAnticipator().anticipateEvent(new EventBuilder(EventConstants.ALARM_CREATED_UEI, "alarmd").getEvent());
@@ -183,7 +186,7 @@ public class AlarmLifecycleEventsIT implements TemporaryDatabaseAware<MockDataba
     }
 
     @Test
-    public void canGenerateAlarmDeletedLifecycleEvents() {
+    public void _2canGenerateAlarmDeletedLifecycleEvents() { // wird als 1. aufgerufen
         // Expect an alarmCreated event
         m_eventMgr.getEventAnticipator().resetAnticipated();
         m_eventMgr.getEventAnticipator().anticipateEvent(new EventBuilder(EventConstants.ALARM_CREATED_UEI, "alarmd").getEvent());
